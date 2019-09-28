@@ -51,6 +51,11 @@ namespace ConsolePL
                 service.WithdrawAccount(t, 10);
             }
 
+            foreach (var item in service.GetAllAccounts())
+            {
+                Console.WriteLine(item);
+            }
+
             Console.Read();
         }
     }

@@ -8,8 +8,8 @@ namespace DAL.Repositories
 {
     public class AccountRepository : IRepository
     {
-        AccountContext db;
-        private string filePath;
+        private AccountContext db;
+        private readonly string filePath;
 
         /// <summary>
         /// Constructor
@@ -56,8 +56,12 @@ namespace DAL.Repositories
                 throw new ArgumentNullException();
             }
 
-
-            db.Entry(account).Property(o => o.AccountId).IsModified = true;
+            AccountDTO accToUpdate = db.Accounts.Find(account.AccountId);
+            accToUpdate.Balance = account.Balance;
+            accToUpdate.Bonus = account.Bonus;
+            accToUpdate.Owner = account.Owner;
+            accToUpdate.Status = account.Status;
+            accToUpdate.Type = account.Type;
             db.SaveChanges();
         }
 
